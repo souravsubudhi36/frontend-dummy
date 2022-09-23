@@ -19,6 +19,7 @@ import Typography from '@mui/material/Typography';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
+import OutlinedCard from './Card';
 
 const drawerWidth = 240;
 
@@ -74,31 +75,32 @@ function Hub(props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar
+      {/* <AppBar
         position="fixed"
-        sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-        }}
-      >
+        // sx={{
+        //   width: { sm: `calc(100% - ${drawerWidth}px)` },
+        //   ml: { sm: `${drawerWidth}px` },
+        // }}
+      > */}
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
+          > */}
+            {/* <MenuIcon /> */}
+          {/* </IconButton> */}
           {/* header style */}
           
         </Toolbar>
-      </AppBar>
+      {/* </AppBar> */}
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
+        
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
@@ -127,7 +129,12 @@ function Hub(props) {
           {drawer}
         </Drawer>
       </Box>
-      
+      <div>
+        <OutlinedCard/>
+      </div>
+      <div>
+        <OutlinedCard/>
+      </div>
         
     </Box>
   );
