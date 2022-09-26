@@ -22,6 +22,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import OutlinedCard from './Card';
 import Grid from '@mui/material/Grid';
 import { createTheme } from '@mui/system';
+import PieChartCard from '../components/PieChartCard';
 
 
 const drawerWidth = 240;
@@ -34,23 +35,6 @@ const drawerWidth = 240;
 //   window?: () => Window;
 // }
 
-function IconRendering(index)
-{
-  if (index == 0)
-  {
-    return <AnalyticsIcon/>;
-    
-  }
-  else if(index == 1)
-  {
-    return <CreateNewFolderIcon/>;
-    
-  }
-  else
-  {
-    return <AccountCircleIcon/>
-  }
-}
 
 const useStyles = makeStyles((theme) => ({
   paperStyle: {
@@ -83,31 +67,9 @@ const theme = createTheme({
   }
 });
 
-const data = [
-  {
-    currentStatus: 'pending',
-    date : '22.09.2022',
-    name: 'Naveen',
-  },
-  {
-    currentStatus: 'pending',
-    date : '22.09.2022',
-    name: 'Naveen',
-  },
-  {
-    currentStatus: 'pending',
-    date : '22.09.2022',
-    name: 'Naveen',
-  },
-  {
-    currentStatus: 'pending',
-    date : '22.09.2022',
-    name: 'Naveen',
-  },
-];
 
 
-export default function Hub(props) {
+export default function Analytics(props) {
  
 
   const classes = useStyles();
@@ -118,17 +80,8 @@ export default function Hub(props) {
         sx={{ flexGrow: 1, ml: `${drawerWidth}px`, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Grid container spacing={2}>
-          {
-            data.map((item) => (
-              <Grid item xs={12} md={6}>
-                  <OutlinedCard
-                    status = {item.currentStatus}
-                    date = {item.date}
-                    name = {item.name}
-                  />
-              </Grid>
-            ))
-          }
+        <PieChartCard/>
+          
         </Grid>
       </Box>
   );

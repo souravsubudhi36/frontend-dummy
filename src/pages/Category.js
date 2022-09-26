@@ -11,6 +11,8 @@ import {
 } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
+import Modal from "../components/Modal";
+import BasicCard from "../components/DataCard";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -90,42 +92,91 @@ const useStyles = makeStyles((theme) => ({
 
 const categories = [
     {
-      value: 'category1',
-      label: 'Category1',
+      value: 'HSE Policy',
+      label: 'HSE Policy',
     },
     {
-      value: 'category2',
-      label: 'Category2',
+      value: 'HSE Procedures',
+      label: 'HSE Procedures',
     },
     {
-      value: 'category3',
-      label: 'Category3',
+      value: "SOP's Electrical",
+      label: "SOP's Electrical",
     },
     {
-      value: 'category4',
-      label: 'Category4',
+      value: "SOP's Mechanical",
+      label: "SOP's Mechanical",
+    },
+    {
+      value: "SOP's Operation",
+      label: "SOP's Operation",
+    },
+    {
+      value: "SOP's Instrumentation",
+      label: "SOP's Instrumentation",
     },
   ];
 
 const Category = (props) => {
   
   const classes = useStyles();
-  return (
+  const [categoryData , setCategoryData] = React.useState({
+    users: []
+  });
+  const [modalShown, toggleModal] = React.useState(false);
+  
 
+  const handleSubmit = (data) => {
+    console.log(data);
+    axios({
+      method: "GET",
+      url: `http://iosapi.centralindia.cloudapp.azure.com/documents`,
+      headers: {  "Content-Type": "application/json"},
+      params: {
+        "category" : data
+      }
+    })
+      .then((response) => {
+        console.log(response.data)
+        setCategoryData({ users: response.data })
+        console.log(categoryData.users)
+      })
+      toggleModal(!modalShown);
+
+    
+
+  }
+
+  return (
 
     <div className={classes.border}>
         <div className={classes.paperStyle}>
             <h4 className={classes.heading}>Categories</h4>
             <div className={classes.extra}>
-                {categories.map((name) => (
+                {categories.map(( name) => (
                     <Button
                     variant="contained"
                     className={classes.btnstyle}
-                    // onClick={handleLogin}
+                    onClick= {() => {
+                      handleSubmit(name.label);
+                    }}
                 >
                    {name.label}
                 </Button>
                 ))}
+                {/* <BasicModal open = {open}/> */}
+                <Modal
+                  shown={modalShown}
+                  close = {() => {
+                    toggleModal(false);
+                  }
+                  }
+                  >
+                    {categoryData.users.map((item , index) => {
+                      <BasicCard  />
+                    })}
+                    <h1>Hello</h1>
+                  </Modal>
             </div>
         </div>
     </div>

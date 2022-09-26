@@ -24,20 +24,28 @@ import {
 
   const categories = [
     {
-      value: 'category1',
-      label: 'Category1',
+      value: 'HSE Policy',
+      label: 'HSE Policy',
     },
     {
-      value: 'category2',
-      label: 'Category2',
+      value: 'HSE Procedures',
+      label: 'HSE Procedures',
     },
     {
-      value: 'category3',
-      label: 'Category3',
+      value: "SOP's Electrical",
+      label: "SOP's Electrical",
     },
     {
-      value: 'category4',
-      label: 'Category4',
+      value: "SOP's Mechanical",
+      label: "SOP's Mechanical",
+    },
+    {
+      value: "SOP's Operation",
+      label: "SOP's Operation",
+    },
+    {
+      value: "SOP's Instrumentation",
+      label: "SOP's Instrumentation",
     },
   ];
 
@@ -51,9 +59,9 @@ const useStyles = makeStyles((theme) => ({
       width: "30%",
     },
   },
-  input: {
-    display: 'none',
-  },
+  // input: {
+  //   display: 'none',
+  // },
 
   extra: {
     display: "flex",
@@ -129,23 +137,93 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 const Form = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPass] = useState("");
+  const [title, setTitle] = useState("");
+  const [serialNumber, setSerialNumber] = useState("");
+  const [revison, setRevision] = useState("");
+  const [category, setCatogory] = React.useState("");
+  const [selectedDate, setSelectedDate] = React.useState(null);
+  const [uploadFile, setUploadFile] = React.useState(null);
+  const [documentUri , setDocumentUri] = React.useState("");
 
   const classes = useStyles();
  
 
-  const [selectedDate, setSelectedDate] = React.useState(null);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
 
-  const [category, setCatogory] = React.useState('category 1');
+
 
   const handleCategoryChange = (event) => {
     setCatogory(event.target.value);
   };
+
+
+  const onFileChangeHandler = (event) => {
+    setUploadFile(event.target.files[0]);
+  };
+
+  const onSubmitHandler = async (e) => {
+    // console.log("Hello");
+    e.preventDefault();
+    console.log(documentUri);
+    console.log(typeof(documentUri));
+    const serial = parseInt(serialNumber);
+    const revision_int = parseInt(revison)
+    var yourDate = selectedDate
+    var yourDate1 = yourDate.toISOString().split('T')[0]
+    axios
+      .post("http://iosapi.centralindia.cloudapp.azure.com/documents" , {
+        serial_no : serial,
+        title : title,
+        revision: revision_int,
+        date_of_upload: yourDate1,
+        category: category,
+        document_url: documentUri
+      })
+      .then((res) => {
+        console.log(res);
+
+      }
+      )
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  const onFileUploadHandler = () => {
+    const formData = new FormData();
+    
+      // Update the formData object
+      formData.append('file', uploadFile);
+
+      // Details of the uploaded file
+      console.log(uploadFile);
+    
+      // Request made to the backend api
+      // Send formData object
+      // see structure of response check whether it is in response.data.
+      axios
+        .post("http://iosapi.centralindia.cloudapp.azure.com/upload/", formData)
+        .then((res) => {
+          console.log(res);
+          const data = res.data.uuid;
+          console.log(data);
+          setDocumentUri(data);
+          
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+        
+  }
+
+  //parse datatypes
+
+
+  //Submit Handler
+ 
 
 
   return (
@@ -165,7 +243,7 @@ const Form = (props) => {
                 type="text"
                 className={classes.field}
                 onChange={(event) => {
-                  setEmail(event.target.value);
+                  setTitle(event.target.value);
                 }}
               />
               <TextField
@@ -175,7 +253,7 @@ const Form = (props) => {
                 type="text"
                 className={classes.field}
                 onChange={(event) => {
-                  setPass(event.target.value);
+                  setSerialNumber(event.target.value);
                 }}
               />
               <TextField
@@ -185,7 +263,7 @@ const Form = (props) => {
                 type="text"
                 className={classes.field}
                 onChange={(event) => {
-                  setPass(event.target.value);
+                  setRevision(event.target.value);
                 }}
               />
 
@@ -229,20 +307,22 @@ const Form = (props) => {
                 id="contained-button-file"
                 multiple
                 type="file"
+                onChange={onFileChangeHandler}
             />
-            <label htmlFor="contained-button-file">
-                <Button variant="contained"  component="span" className={classes.btnstyle}>
+           
+                <Button variant="contained"  component="span" className={classes.btnstyle} onClick={onFileUploadHandler}>
                 Upload PDF
                 </Button>
-            </label>
-
+            
+        
             <Button
                 type="submit"
                 variant="contained"
                 className={classes.btnstyle}
                 fullWidth
+                onClick={onSubmitHandler}
                 >
-                Submit
+                Submit 
             </Button>
             </div>
           </div>
