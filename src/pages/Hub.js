@@ -22,6 +22,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import OutlinedCard from './Card';
 import Grid from '@mui/material/Grid';
 import { createTheme } from '@mui/system';
+import BigCard from '../components/BigCard';
 
 
 const drawerWidth = 240;
@@ -83,7 +84,7 @@ const theme = createTheme({
   }
 });
 
-const data = [
+const pending_data = [
   {
     currentStatus: 'pending',
     date : '22.09.2022',
@@ -94,17 +95,37 @@ const data = [
     date : '22.09.2022',
     name: 'Naveen',
   },
-  {
-    currentStatus: 'pending',
-    date : '22.09.2022',
-    name: 'Naveen',
-  },
-  {
-    currentStatus: 'pending',
-    date : '22.09.2022',
-    name: 'Naveen',
-  },
+  
 ];
+
+const completed_data = [
+  {
+    currentStatus: 'pending',
+    date : '22.09.2022',
+    name: 'Naveen',
+  },
+  {
+    currentStatus: 'pending',
+    date : '22.09.2022',
+    name: 'Naveen',
+  },
+  
+];
+
+const late_data = [
+  {
+    currentStatus: 'pending',
+    date : '22.09.2022',
+    name: 'Naveen',
+  },
+  {
+    currentStatus: 'pending',
+    date : '22.09.2022',
+    name: 'Naveen',
+  },
+  
+];
+
 
 
 export default function Hub(props) {
@@ -117,18 +138,20 @@ export default function Hub(props) {
         component="main"
         sx={{ flexGrow: 1, ml: `${drawerWidth}px`, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
-        <Grid container spacing={2}>
-          {
-            data.map((item) => (
-              <Grid item xs={12} md={6}>
-                  <OutlinedCard
-                    status = {item.currentStatus}
-                    date = {item.date}
-                    name = {item.name}
-                  />
-              </Grid>
-            ))
-          }
+        <Grid container spacing={4} >
+          <Grid item xs = {12} md = {4} >
+            <BigCard data={pending_data} />
+
+          </Grid>
+          <Grid item xs = {12} md = {4}>
+            <BigCard data={completed_data}/>
+          </Grid>
+
+          <Grid item xs = {12} md = {4}>
+            <BigCard data={late_data}/>
+          </Grid>
+
+
         </Grid>
       </Box>
   );

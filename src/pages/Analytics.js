@@ -23,6 +23,9 @@ import OutlinedCard from './Card';
 import Grid from '@mui/material/Grid';
 import { createTheme } from '@mui/system';
 import PieChartCard from '../components/PieChartCard';
+import BarChartCard from '../components/BarChartCard';
+import SliderSizes from '../components/Slider';
+import BigCard from '../components/BigCard';
 
 
 const drawerWidth = 240;
@@ -51,7 +54,22 @@ const useStyles = makeStyles((theme) => ({
   },
   color:{
     background: "#000066"
-  }
+  },
+  border:{
+    
+    // boxShadow: "0px 7px 7px -3px   #B3A9A2",
+    margin: theme.spacing(0.5, 0.5),
+    borderRadius: "10px",
+    position: "center",
+    [theme.breakpoints.up("md")]: {
+        margin: theme.spacing(1, 6),
+        // padding: theme.spacing(-4 , -4),
+        borderRadius: "30px",
+     
+       
+      },
+    
+  },
 })) 
 
 const theme = createTheme({
@@ -75,14 +93,43 @@ export default function Analytics(props) {
   const classes = useStyles();
 
   return (
-      <Box
+    <div className={classes.border}>
+<Box
         component="main"
         sx={{ flexGrow: 1, ml: `${drawerWidth}px`, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        sm={{flexGrow: 1, ml: "0px", width: { sm: "100%" }}}
       >
-        <Grid container spacing={2}>
-        <PieChartCard/>
-          
+
+
+<Grid container spacing={4}>
+
+          <Grid item xs ={12} sm ={8}>
+            <Grid container direction="column" spacing={4} >
+              <Grid item xs ={12} sm ={8}>
+                <Grid container direction="row" spacing={4}>
+                  <Grid item xs={12} sm={6}>
+                    <PieChartCard/>
+                  </Grid>
+                  <Grid item xs = {12} sm = {6} >
+                      <BarChartCard />
+                  </Grid>
+                </Grid>
+              </Grid>
+                
+              <Grid item xs = {12} sm = {8} >
+                <SliderSizes/>
+              </Grid>
+            </Grid>
+          </Grid>
+
+
+          <Grid item xs = {12} sm = {4} spacing={4}>
+            <BigCard />
+          </Grid>
+         
         </Grid>
       </Box>
+    </div>
+      
   );
 }

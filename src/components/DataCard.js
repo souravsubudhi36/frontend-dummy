@@ -5,6 +5,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import axios from 'axios';
 
 const bull = (
   <Box
@@ -15,28 +16,46 @@ const bull = (
   </Box>
 );
 
+// const handleDownload = (data) => {
+//     console.log(data);
+//     axios({
+//         method: "GET",
+//         url: `http://iosapi.centralindia.cloudapp.azure.com/download/${data}`,
+//         headers: { "Content-Type": "application/json"},
+       
+//     })
+//     .then((response) => {
+//         console.log(response);
+//     }
+//     )
+
+// }
+
 export default function BasicCard(props) {
   return (
     <Card sx={{ minWidth: 100 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {/* {props.title} */}
-          hiii
+          {props.title}
+          {/* hiii */}
         </Typography>
         <Typography variant="h5" component="div">
-          be{bull}nev{bull}o{bull}lent
+          {props.serial_no}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
+          {props.revision}
         </Typography>
         <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
+          { props.category }
+        </Typography>  
+       <a download={props.title} href = {"http://iosapi.centralindia.cloudapp.azure.com/download/" + props.document_url} target = "_blank">
+        {props.title}
+       </a> 
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button size="small">
+            Learn More
+        </Button>
       </CardActions>
     </Card>
   );

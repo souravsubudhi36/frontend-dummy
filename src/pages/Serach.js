@@ -6,7 +6,9 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 
 import { Button } from "@material-ui/core";
-
+import axios from "axios";
+import Modal from "../components/Modal";
+import BasicCard from "../components/DataCard";
 
 const useStyles = makeStyles((theme) => ({
  
@@ -60,14 +62,14 @@ const useStyles = makeStyles((theme) => ({
   btnstyle: {
     fontFamily: "Quicksand, sans-serif",
     fontWeight: "700",
-    backgroundColor: "#B3A9A2",
+    backgroundColor: "#8080ff",
     color: "#fff",
-    margin: theme.spacing(1, 1),
+    margin: theme.spacing(0, 0),
     width: "40%",
     height: 55,
     [theme.breakpoints.up("md")]: {
       width: "20%",
-      margin: theme.spacing(2, 2),
+      margin: theme.spacing(4, 2),
     },
     borderRadius: "15px",
     textTransform: "none"
@@ -127,33 +129,80 @@ const useStyles = makeStyles((theme) => ({
   },
   
 }));
+
 const Search = (props) => {
+
+  const [searchValue , setSearchValue] = React.useState("");
+  const [titleData , setTitleData] = React.useState([]);
+  const [modalShown, toggleModal] = React.useState(false);
+
+
+  const handleSubmit = (data) => {
+    console.log(data);
+    axios({
+      method: "GET",
+      url: `http://iosapi.centralindia.cloudapp.azure.com/documents`,
+      headers: {  "Content-Type": "application/json"},
+      params: {
+        "title" : data
+      }
+    })
+    .then((response) => {
+      console.log(response.data);
+      setTitleData([...response.data])
+
+    }
+
+    )
+    toggleModal(!modalShown);
+  }
   
   const classes = useStyles();
   return (
     <div className={classes.border}>
         <div className={classes.paperStyle}>
-            <h4 className={classes.heading}>Search</h4>
             <div className={classes.extra}>
                 <div className={classes.search}>
                     <div className={classes.searchIcon}>
                         <SearchIcon />
                     </div>
                     <InputBase
-                        placeholder="Search…..."
+                        placeholder="Search by Title…."
+                        value={searchValue}
                         classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
                         }}
                         inputProps={{ 'aria-label': 'search' }}
+                        onChange = {(event) => {
+                          setSearchValue(event.target.value);
+                        }}
+                        
                     />
-                    {/* <div>
-                      <Button> search</Button>
-                    </div> */}
+                    
+                    
+                      
                 </div>
-               
-
+                
             </div>
+            
+            <Button className={classes.btnstyle} onClick = {() => {
+              handleSubmit(searchValue);
+            }
+            }> search</Button>
+            <Modal
+                  shown={modalShown}
+                  close = {() => {
+                    toggleModal(false);
+                  }
+                  }
+                  >
+                     {titleData.map(( name) => (
+
+                    <BasicCard serial_no =  {name.serial_no} title = {name.title} revision = {name.revision} category = {name.category} document_url = {name.document_url}/>
+
+                    ))}
+                  </Modal>
         </div>
     </div>
   );

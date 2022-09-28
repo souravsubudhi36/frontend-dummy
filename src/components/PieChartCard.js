@@ -8,15 +8,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
-import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
-import Brightness1OutlinedIcon from '@mui/icons-material/Brightness1Outlined';
-import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+
 
 
 
@@ -37,7 +29,7 @@ const bull = (
           height: "40px",
           borderRadius: "13px",
           padding: theme.spacing(1, 2),
-          margin: theme.spacing(0, 0,6, 0)
+          margin: theme.spacing(0, 0,0, 0)
   
       },
   
@@ -97,7 +89,9 @@ const bull = (
         position: "center",
         [theme.breakpoints.up("md")]: {
             margin: theme.spacing(1, 6),
+            // padding: theme.spacing(-4 , -4),
             borderRadius: "30px",
+            width: "70%"
            
           },
         
@@ -124,6 +118,10 @@ const bull = (
         width:"30px",
         margin: theme.spacing(0,0.8)
   
+      },
+      spacing:{
+        margin: theme.spacing(-6),
+      
       }
       
     }));
@@ -149,31 +147,81 @@ const bull = (
         { argument:'Friday', value:20 },
         ];
   
-  export default function PieChartCard() {
+  export default function PieChartCard(props) {
   
       const classes = useStyles();
     return (
-      <div className={classes.border}>
-      <Box sx={{ minWidth: 400 }}>
-        <Card variant="outlined" style={{borderRadius: "15px"}}>
+  
+        <Card  style={{borderRadius: "15px", maxHeight: "auto"}}>
   
         <div className={classes.background}>
-        Study
+            Status  
+            {/* props.status */}
          </div>
-            <Paper>
+          
+            
             <Chart
                 data={data}
+                className={classes.spacing}
             >
             <PieSeries valueField="value" 
                 argumentField="argument" 
-                innerRadius={0.6} />
-            
+                innerRadius={0.4} 
+                outerRadius = {0.5}
+               
+                >
+                
+                </PieSeries>
             </Chart>
-        </Paper>
-        
+
         </Card>
-      </Box>
-      </div>
+   
+
     );
   }
   
+
+//   <div className={classes.border}>
+//   <Box sx={{ minWidth: 400 }}>
+//     <Card variant="outlined" style={{borderRadius: "15px"}}>
+
+//     <div className={classes.background}>
+//       {props.status}
+//      </div>
+
+
+//     <div className={classes.paperStyle}>
+//         <Brightness1OutlinedIcon className={classes.icon}/>
+//         <div>
+//           Area 1 Total permits
+//         </div>
+//     </div>
+
+//     <Divider className={classes.divider} />
+
+//     <div className={classes.paperStyle}>
+//         <CalendarTodayOutlinedIcon className={classes.iconCalendar}/>
+//         <div className={classes.due}>
+//          Due on
+//         </div>
+
+//         <div  className={classes.date}>
+//          {props.date}
+//         </div>
+//     </div>
+
+//     <div className={classes.paperStyle}>
+//         <PersonOutlineIcon className={classes.iconPerson}/>
+//         <div className={classes.assigned}>
+//           {props.name}
+//         </div>
+
+//     </div>
+
+//      <CardActions>
+//       <Button size="small">Learn More</Button>
+//     </CardActions>
+
+//     </Card>
+//   </Box>
+//   </div>

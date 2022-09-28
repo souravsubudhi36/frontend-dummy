@@ -120,9 +120,9 @@ const categories = [
 const Category = (props) => {
   
   const classes = useStyles();
-  const [categoryData , setCategoryData] = React.useState({
-    users: []
-  });
+  const [categoryData , setCategoryData] = React.useState(
+    []
+  );
   const [modalShown, toggleModal] = React.useState(false);
   
 
@@ -137,8 +137,9 @@ const Category = (props) => {
       }
     })
       .then((response) => {
+        console.log(response)
         console.log(response.data)
-        setCategoryData({ users: response.data })
+        setCategoryData( [...response.data] )
         console.log(categoryData.users)
       })
       toggleModal(!modalShown);
@@ -146,6 +147,9 @@ const Category = (props) => {
     
 
   }
+
+
+  
 
   return (
 
@@ -164,6 +168,7 @@ const Category = (props) => {
                    {name.label}
                 </Button>
                 ))}
+                
                 {/* <BasicModal open = {open}/> */}
                 <Modal
                   shown={modalShown}
@@ -172,9 +177,13 @@ const Category = (props) => {
                   }
                   }
                   >
-                    {categoryData.users.map((item , index) => {
-                      <BasicCard  />
-                    })}
+                    
+                 {categoryData.map(( name) => (
+
+                    <BasicCard serial_no =  {name.serial_no} title = {name.title} revision = {name.revision} category = {name.category} document_url = {name.document_url} />
+                  
+             
+                ))}
                     <h1>Hello</h1>
                   </Modal>
             </div>
