@@ -32,7 +32,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
 
 
-const drawerWidth = 240;
+const drawerWidth = 239;
 
 // interface Props {
 //   /**
