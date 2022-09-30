@@ -7,12 +7,12 @@ import {
 } from 'devextreme-react/chart';
 
 
-const data = [
-    { age: 'Low', number: 5900000 },
-    { age: 'Medium', number: 38250000 },
-    { age: 'Important', number: 52820000 },
-    { age: 'Urgent', number: 38420000 }
-]
+// const data = [
+//     { status: 'Low', count: 5900000 },
+//     { status: 'Medium', count: 38250000 },
+//     { status: 'Important', count: 52820000 },
+//     { status: 'Urgent', count: 38420000 }
+// ]
 
 const useStyles = makeStyles((theme) => ({
    
@@ -113,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
     
   }));
 
-const BarChartCard = () =>  {
+const BarChartCard = ({data}) =>  {
 
     const classes = useStyles();
 
@@ -129,12 +129,12 @@ const BarChartCard = () =>  {
         width= {400}
         dataSource={data}>
         <CommonSeriesSettings
-          argumentField="age"
-          valueField="number"
+          argumentField="priority"
+          valueField="count"
           type="bar"
           ignoreEmptyPoints={true}
         />
-        <SeriesTemplate nameField="age" />
+        <SeriesTemplate nameField="priority" />
         
       </Chart>
       </Card>

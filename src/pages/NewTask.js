@@ -24,28 +24,50 @@ import {
     KeyboardTimePicker,
     KeyboardDatePicker,
   } from '@material-ui/pickers';
+import axios from "axios";
 
 
 const drawerWidth = 240; 
 
-const categories = [
+const users = [
     {
-      value: 'category1',
-      label: 'Category1',
+      value: 'user1@example.com',
+      label: 'User1',
     },
     {
-      value: 'category2',
-      label: 'Category2',
+      value: 'user2@example.com',
+      label: 'User2',
     },
     {
-      value: 'category3',
-      label: 'Category3',
+      value: 'user3@example.com',
+      label: 'User3',
     },
     {
-      value: 'category4',
-      label: 'Category4',
+      value: 'user4@example.com',
+      label: 'User4',
     },
   ];
+
+
+  const priority_data = [
+    {
+      value: 'Low',
+      label: 'Low',
+    },
+    {
+      value: 'Medium',
+      label: 'Medium',
+    },
+    {
+      value: 'Important',
+      label: 'Important',
+    },
+    {
+      value: 'Urgent',
+      label: 'Urgent',
+    },
+  ];
+
 
 const useStyles = makeStyles((theme) => ({
   BackgroundHead: {
@@ -97,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
   btnstyle: {
     fontFamily: "Quicksand, sans-serif",
     fontWeight: "700",
-    backgroundColor: "#8080ff",
+    backgroundColor: "#00004d",
     color: "#fff",
     margin: theme.spacing(1, 2),
     width: "300px",
@@ -151,7 +173,7 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     fontFamily: "Quicksand, sans-serif",
     fontWeight: "700",
-    backgroundColor: "#8080ff",
+    backgroundColor: "#00004d",
     color: "#fff",
     margin: theme.spacing(0, 0),
     width: "300px",
@@ -167,9 +189,8 @@ const useStyles = makeStyles((theme) => ({
 const Newtask = () => {
   const classes = useStyles();
 
-  const [email, setEmail] = useState("");
-  const [password, setPass] = useState("");
-
+  const [title, setTitle] = useState("");
+  const [user, setUser] = React.useState('');
  
 
   const [selectedDate, setSelectedDate] = React.useState(null);
@@ -178,11 +199,81 @@ const Newtask = () => {
     setSelectedDate(date);
   };
 
-  const [category, setCatogory] = React.useState('category 1');
+  
 
-  const handleCategoryChange = (event) => {
-    setCatogory(event.target.value);
+  const handleUserChange = (event) => {
+    setUser(event.target.value);
   };
+
+  const onFileChangeHandler = (event) => {
+    setUploadFile(event.target.files[0]);
+  };
+
+  const onPriorityHandler = (event) => {
+    setPriority(event.target.value);
+  }
+
+  
+
+  const [priority , setPriority] = React.useState('')
+  const [uploadFile, setUploadFile] = React.useState(null);
+  const [documentUri , setDocumentUri] = React.useState("");
+
+
+
+  const onFileUploadHandler = () => {
+    const formData = new FormData();
+
+
+    formData.append('file' , uploadFile);
+    console.log(uploadFile);
+
+    axios
+      .post("http://iosapi.centralindia.cloudapp.azure.com/upload/", formData)
+      .then((response) => {
+        console.log(response);
+        const data = response.data.uuid;
+        console.log(data);
+        setDocumentUri(data);
+      })
+  }
+
+  const onSubmitHandler = async (e) => {
+
+    e.preventDefault();
+    console.log(documentUri);
+   
+    console.log(title);
+    console.log(user);
+    console.log(priority);
+   
+    var yourDate = selectedDate;
+    var yourDateStr = yourDate.toISOString().split('T')[0]
+    console.log(yourDateStr);
+    console.log(typeof(documentUri));
+    console.log(typeof(title));
+    console.log(typeof(user));
+    console.log(typeof(priority));
+    console.log(typeof(yourDateStr))
+    axios
+      .post("http://iosapi.centralindia.cloudapp.azure.com/tasks" , {
+        name : title,
+        assigned_to : user,
+        priority : priority,
+        due_date : yourDateStr,
+        document_url : documentUri
+
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+
+  }
+  
 
   return (
 
@@ -207,20 +298,20 @@ const Newtask = () => {
                 type="text"
                 className={classes.field}
                 onChange={(event) => {
-                  setEmail(event.target.value);
+                  setTitle(event.target.value);
                 }}
               />
             <TextField
                 id="outlined-select-currency"
                 select
                 label="Assign To"
-                value={category}
-                onChange={handleCategoryChange}
+                value={user}
+                onChange={handleUserChange}
                 className={classes.field}
                 helperText="Drop down from users"
                 variant="outlined"
                 >
-                {categories.map((option) => (
+                {users.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                     {option.label}
                     </MenuItem>
@@ -230,13 +321,13 @@ const Newtask = () => {
                 id="outlined-select-currency"
                 select
                 label="Priority"
-                value={category}
-                onChange={handleCategoryChange}
+                value={priority}
+                onChange={onPriorityHandler}
                 className={classes.field}
                 helperText="Please select your priority"
                 variant="outlined"
                 >
-                {categories.map((option) => (
+                {priority_data.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                     {option.label}
                     </MenuItem>
@@ -264,6 +355,7 @@ const Newtask = () => {
                 id="contained-button-file"
                 multiple
                 type="file"
+                onChange={onFileChangeHandler}
             />
             <label htmlFor="contained-button-file">
                 <Button variant="contained"  component="span" className={classes.btnstyle}>
@@ -276,6 +368,7 @@ const Newtask = () => {
                 variant="contained"
                 className={classes.btnstyle}
                 fullWidth
+                onClick={onFileUploadHandler}
                 >
                Upload
             </Button>
@@ -287,6 +380,7 @@ const Newtask = () => {
             variant="contained"
             className={classes.submit}
             fullWidth
+            onClick={ onSubmitHandler }
             >
             Submit
             </Button>

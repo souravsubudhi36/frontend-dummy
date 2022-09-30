@@ -83,33 +83,12 @@ const theme = createTheme({
   }
 });
 
-const data = [
-  {
-    currentStatus: 'pending',
-    date : '22.09.2022',
-    name: 'Naveen',
-  },
-  {
-    currentStatus: 'pending',
-    date : '22.09.2022',
-    name: 'Naveen',
-  },
-  {
-    currentStatus: 'pending',
-    date : '22.09.2022',
-    name: 'Naveen',
-  },
-  {
-    currentStatus: 'pending',
-    date : '22.09.2022',
-    name: 'Naveen',
-  },
-];
+
 
 const menu = [
     {
         name: 'HUB',
-        route: 'hub'
+        route: 'analytics'
     },
     {
         name: 'New Task',
@@ -117,7 +96,7 @@ const menu = [
     },
     {
         name: 'Assigned',
-        route: 'assigned'
+        route: 'hub'
     },
     
   ];

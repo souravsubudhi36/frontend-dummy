@@ -127,27 +127,10 @@ const bull = (
     }));
     
   
-    // const card = (
-    //   <React.Fragment>
-    //     {/* <CardContent> */}
-    //      <div style={{backgroundColor: "black"}}>
-    //       hiii
-    //      </div>
-    //     {/* </CardContent> */}
-    //     <CardActions>
-    //       <Button size="small">Learn More</Button>
-    //     </CardActions>
-    //   </React.Fragment>
-    // );
-    const data = [
-        { argument:'Monday', value:10 },
-        { argument:'Tuesday', value:40 },
-        { argument:'Wednesday', value:10 },
-        { argument:'Thursday', value:20 },
-        { argument:'Friday', value:20 },
-        ];
+    
+
   
-  export default function PieChartCard(props) {
+  export default function PieChartCard({data}) {
   
       const classes = useStyles();
     return (
@@ -164,8 +147,8 @@ const bull = (
                 data={data}
                 className={classes.spacing}
             >
-            <PieSeries valueField="value" 
-                argumentField="argument" 
+            <PieSeries valueField="count" 
+                argumentField="status" 
                 innerRadius={0.4} 
                 outerRadius = {0.5}
                

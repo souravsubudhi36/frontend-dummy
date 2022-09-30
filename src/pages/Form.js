@@ -112,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
   btnstyle: {
     fontFamily: "Quicksand, sans-serif",
     fontWeight: "700",
-    backgroundColor: "#8080ff",
+    backgroundColor: "#00004d",
     color: "#fff",
     margin: theme.spacing(1, 2),
     width: "90%",
@@ -173,6 +173,7 @@ const Form = (props) => {
     const revision_int = parseInt(revison)
     var yourDate = selectedDate
     var yourDate1 = yourDate.toISOString().split('T')[0]
+    console.log(yourDate1);
     axios
       .post("http://iosapi.centralindia.cloudapp.azure.com/documents" , {
         serial_no : serial,

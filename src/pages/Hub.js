@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect , useState } from 'react';
 import { makeStyles} from "@material-ui/core/styles";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -23,35 +24,12 @@ import OutlinedCard from './Card';
 import Grid from '@mui/material/Grid';
 import { createTheme } from '@mui/system';
 import BigCard from '../components/BigCard';
+import axios from 'axios';
 
 
 const drawerWidth = 240;
 
-// interface Props {
-//   /**
-//    * Injected by the documentation to work in an iframe.
-//    * You won't need it on your project.
-//    */
-//   window?: () => Window;
-// }
 
-function IconRendering(index)
-{
-  if (index == 0)
-  {
-    return <AnalyticsIcon/>;
-    
-  }
-  else if(index == 1)
-  {
-    return <CreateNewFolderIcon/>;
-    
-  }
-  else
-  {
-    return <AccountCircleIcon/>
-  }
-}
 
 const useStyles = makeStyles((theme) => ({
   paperStyle: {
@@ -71,66 +49,40 @@ const useStyles = makeStyles((theme) => ({
   }
 })) 
 
-const theme = createTheme({
-  components: {
-    MuiDrawer: {
-      styleOverrides: {
-        paper: {
-          backgroundColor: "pink",
-          color: "red",
-        }
-      }
-    }
-  }
-});
 
-const pending_data = [
-  {
-    currentStatus: 'pending',
-    date : '22.09.2022',
-    name: 'Naveen',
-  },
-  {
-    currentStatus: 'pending',
-    date : '22.09.2022',
-    name: 'Naveen',
-  },
-  
-];
-
-const completed_data = [
-  {
-    currentStatus: 'pending',
-    date : '22.09.2022',
-    name: 'Naveen',
-  },
-  {
-    currentStatus: 'pending',
-    date : '22.09.2022',
-    name: 'Naveen',
-  },
-  
-];
-
-const late_data = [
-  {
-    currentStatus: 'pending',
-    date : '22.09.2022',
-    name: 'Naveen',
-  },
-  {
-    currentStatus: 'pending',
-    date : '22.09.2022',
-    name: 'Naveen',
-  },
-  
-];
 
 
 
 export default function Hub(props) {
  
+  const [task, setTask] = useState(null);  
+  const [pendingData , setPendingData] = useState(null);
+  const [completedData , setCompletedData] = useState(null);
+  const [overdueData , setOverdueData] = useState(null);
 
+  
+
+  useEffect(() => {
+
+    const getData = async () => {
+      await axios.get("http://iosapi.centralindia.cloudapp.azure.com/user%40example.com/tasks")
+      .then((res) => {
+        console.log(res.data)
+        console.log(res.data.pending)
+        setTask(res.data);
+        setPendingData([...res.data.pending])
+        setCompletedData([...res.data.completed]);
+        setOverdueData([...res.data.overdue]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      
+    };  
+
+    getData();
+    console.log(pendingData);
+  }, []);
   const classes = useStyles();
 
   return (
@@ -140,18 +92,14 @@ export default function Hub(props) {
       >
         <Grid container spacing={4} >
           <Grid item xs = {12} md = {4} >
-            <BigCard data={pending_data} />
-
+            <BigCard data = {pendingData} status="pending" />
           </Grid>
           <Grid item xs = {12} md = {4}>
-            <BigCard data={completed_data}/>
+              <BigCard data = { completedData } status = "Completed"/>
           </Grid>
-
           <Grid item xs = {12} md = {4}>
-            <BigCard data={late_data}/>
+            <BigCard data = { overdueData } status = "Overdue"/>
           </Grid>
-
-
         </Grid>
       </Box>
   );

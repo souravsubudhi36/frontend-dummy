@@ -7,6 +7,9 @@ import Divider from '@material-ui/core/Divider';
 import Form from "./Form";
 import Category from "./Category";
 import Search from "./Serach";
+import Box from '@mui/material/Box';
+
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   BackgroundHead: {
@@ -57,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   btnstyle: {
     fontFamily: "Quicksand, sans-serif",
     fontWeight: "700",
-    backgroundColor: "#A8A19B",
+    backgroundColor: "#00004d",
     color: "#fff",
     margin: theme.spacing(1, 2),
     width: "300px",
@@ -105,6 +108,10 @@ const Home = () => {
   const classes = useStyles();
 
   return (
+    <Box
+    component="main"
+    sx={{ flexGrow: 1, ml: `${drawerWidth}px`, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+  >
     <div className={classes.BackgroundHead}>
       <div className={classes.extra}>
         <div className={classes.leftmaxwidth}>
@@ -118,6 +125,7 @@ const Home = () => {
         </div>
       </div>
     </div>
+    </Box>
   );
 };
 

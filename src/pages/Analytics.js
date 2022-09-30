@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { makeStyles} from "@material-ui/core/styles";
+import { useState , useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -26,6 +27,7 @@ import PieChartCard from '../components/PieChartCard';
 import BarChartCard from '../components/BarChartCard';
 import SliderSizes from '../components/Slider';
 import BigCard from '../components/BigCard';
+import axios from 'axios';
 
 
 const drawerWidth = 240;
@@ -91,6 +93,62 @@ export default function Analytics(props) {
  
 
   const classes = useStyles();
+  const [statusData , setStatusData] = React.useState([]);
+  const [priorityData , setPriorityData] = React.useState([]);
+  const [userData , setUserData] = React.useState([]);
+  const [pendingData , setPendingData] = useState(null);
+
+  const handleAddStatus = ([...data]) => {
+    setStatusData((statusData) => [
+        ...statusData,
+        {
+           arguement : "Random Friend Name",
+            value: 20, // Random age
+        },
+    ]);
+};
+
+  useEffect(() => {
+
+    const getData = async () => {
+        await axios.get("http://iosapi.centralindia.cloudapp.azure.com/hub")
+        .then((response) => {
+            console.log(response.data);
+            console.log(response.data.priority);
+            setStatusData([...response.data.status]);
+            // handleAddStatus(response.data.status);
+            setPriorityData([...response.data.priority]);
+            setUserData([...response.data.user]);
+            statusData.map((entry) => {
+
+            })
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    };
+
+    getData();
+  } , []);
+
+  useEffect(() => {
+
+    const getPendingData = async () => {
+      await axios.get("http://iosapi.centralindia.cloudapp.azure.com/user%40example.com/tasks")
+      .then((response) => {
+        setPendingData([...response.data.pending]);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    };
+
+    getPendingData();
+    console.log(pendingData);
+  } , []);
+
+  
+  
 
   return (
     <div className={classes.border}>
@@ -108,10 +166,11 @@ export default function Analytics(props) {
               <Grid item xs ={12} sm ={8}>
                 <Grid container direction="row" spacing={4}>
                   <Grid item xs={12} sm={6}>
-                    <PieChartCard/>
+                    <PieChartCard data = { statusData }/>
+                    {/* { priorityData && priorityData[0].status} */}
                   </Grid>
                   <Grid item xs = {12} sm = {6} >
-                      <BarChartCard />
+                      <BarChartCard data = { priorityData }/>
                   </Grid>
                 </Grid>
               </Grid>
@@ -124,7 +183,7 @@ export default function Analytics(props) {
 
 
           <Grid item xs = {12} sm = {4} spacing={4}>
-            <BigCard />
+            <BigCard data = {pendingData} status = "Pending"/>
           </Grid>
          
         </Grid>

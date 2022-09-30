@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
   btnstyle: {
     fontFamily: "Quicksand, sans-serif",
     fontWeight: "700",
-    backgroundColor: "#8080ff",
+    backgroundColor: "#00004d",
     color: "#fff",
     margin: theme.spacing(0, 0),
     width: "40%",

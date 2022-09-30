@@ -140,43 +140,50 @@ const useStyles = makeStyles((theme) => ({
 export default function BigCard(props) {
 
     const classes = useStyles();
+
   return (
     <div className={classes.border}>
     <Box sx={{ minWidth: 400 }}>
       <Card variant="outlined" style={{borderRadius: "15px" , minHeight: "700px"}}>
 
       <div className={classes.background}>
-        Tasks
+        {props.status }
        </div>
 
-
-      <div className={classes.paperStyle}>
-          <Brightness1OutlinedIcon className={classes.icon}/>
-          <div>
-            Area 1 Total permits
-          </div>
-      </div>
+       {props.data && props.data.map((text, index) =>
+        <div key={index}>
+        <div className={classes.paperStyle}>
+            <Brightness1OutlinedIcon className={classes.icon}/>
+            <div>
+                {text.name}
+                {/* {props.data[0].priority} */}
+            </div>
+        </div>
 
       <Divider className={classes.divider} />
-
-      <div className={classes.paperStyle}>
-          <CalendarTodayOutlinedIcon className={classes.iconCalendar}/>
-          <div className={classes.due}>
-           Due on
-          </div>
-
-          <div  className={classes.date}>
-           {props.date}
+       
+        
+          <div className={classes.paperStyle}>
+            <CalendarTodayOutlinedIcon className={classes.iconCalendar}/>
+            <div className={classes.due}>
+              Due on
+            </div>
+            <div  className={classes.date}>
+              {text.due_date}
           </div>
       </div>
 
       <div className={classes.paperStyle}>
           <PersonOutlineIcon className={classes.iconPerson}/>
           <div className={classes.assigned}>
-            {props.name}
+            {}
           </div>
 
       </div>
+        </div>
+        
+      ) }
+      
 
        <CardActions>
         <Button size="small">Learn More</Button>
