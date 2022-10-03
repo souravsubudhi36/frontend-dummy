@@ -111,7 +111,7 @@ export default function Analytics(props) {
   useEffect(() => {
 
     const getData = async () => {
-        await axios.get("http://iosapi.centralindia.cloudapp.azure.com/hub")
+        await axios.get("http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/hub")
         .then((response) => {
             console.log(response.data);
             console.log(response.data.priority);
@@ -134,7 +134,7 @@ export default function Analytics(props) {
   useEffect(() => {
 
     const getPendingData = async () => {
-      await axios.get("http://iosapi.centralindia.cloudapp.azure.com/user%40example.com/tasks")
+      await axios.get("http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/user%40example.com/tasks")
       .then((response) => {
         setPendingData([...response.data.pending]);
       })

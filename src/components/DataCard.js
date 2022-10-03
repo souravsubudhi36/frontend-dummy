@@ -48,7 +48,7 @@ export default function BasicCard(props) {
         <Typography variant="body2">
           { props.category }
         </Typography>  
-       <a download={props.title} href = {"http://iosapi.centralindia.cloudapp.azure.com/download/" + props.document_url} target = "_blank">
+       <a download={props.title} href = {"http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/download/" + props.document_url} target = "_blank">
         {props.title}
        </a> 
       </CardContent>

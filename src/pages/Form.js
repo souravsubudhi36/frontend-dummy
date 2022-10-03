@@ -175,7 +175,7 @@ const Form = (props) => {
     var yourDate1 = yourDate.toISOString().split('T')[0]
     console.log(yourDate1);
     axios
-      .post("http://iosapi.centralindia.cloudapp.azure.com/documents" , {
+      .post("http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/documents" , {
         serial_no : serial,
         title : title,
         revision: revision_int,
@@ -206,7 +206,7 @@ const Form = (props) => {
       // Send formData object
       // see structure of response check whether it is in response.data.
       axios
-        .post("http://iosapi.centralindia.cloudapp.azure.com/upload/", formData)
+        .post("http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/upload/", formData)
         .then((res) => {
           console.log(res);
           const data = res.data.uuid;

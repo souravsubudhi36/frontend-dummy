@@ -130,7 +130,7 @@ const Category = (props) => {
     console.log(data);
     axios({
       method: "GET",
-      url: `http://iosapi.centralindia.cloudapp.azure.com/documents`,
+      url: `http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/documents`,
       headers: {  "Content-Type": "application/json"},
       params: {
         "category" : data

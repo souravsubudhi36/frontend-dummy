@@ -256,7 +256,7 @@ const Newtask = () => {
     console.log(typeof(priority));
     console.log(typeof(yourDateStr))
     axios
-      .post("http://iosapi.centralindia.cloudapp.azure.com/tasks" , {
+      .post("hhttp://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/tasks" , {
         name : title,
         assigned_to : user,
         priority : priority,

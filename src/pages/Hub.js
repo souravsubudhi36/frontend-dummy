@@ -65,7 +65,7 @@ export default function Hub(props) {
   useEffect(() => {
 
     const getData = async () => {
-      await axios.get("http://iosapi.centralindia.cloudapp.azure.com/user%40example.com/tasks")
+      await axios.get("http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/user%40example.com/tasks")
       .then((res) => {
         console.log(res.data)
         console.log(res.data.pending)
