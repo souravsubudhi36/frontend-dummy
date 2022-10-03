@@ -31,8 +31,8 @@ const drawerWidth = 240;
 
 const users = [
     {
-      value: 'user1@example.com',
-      label: 'User1',
+      value: 'user@example.com',
+      label: 'User',
     },
     {
       value: 'user2@example.com',
@@ -256,7 +256,7 @@ const Newtask = () => {
     console.log(typeof(priority));
     console.log(typeof(yourDateStr))
     axios
-      .post("hhttp://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/tasks" , {
+      .post("http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/tasks" , {
         name : title,
         assigned_to : user,
         priority : priority,
