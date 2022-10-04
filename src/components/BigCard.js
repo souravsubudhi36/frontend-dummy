@@ -141,10 +141,7 @@ export default function BigCard(props) {
 
     const classes = useStyles();
 
-    const updateHandler = () => {
-      
-
-    }
+    
 
   return (
     <div className={classes.border}>
@@ -179,7 +176,7 @@ export default function BigCard(props) {
       </div>
 
       <div className={classes.paperStyle}>
-          <Button size="small" onClick={updateHandler()}>
+          <Button size="small" >
             {props.action}
           </Button>
 
