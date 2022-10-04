@@ -141,6 +141,11 @@ export default function BigCard(props) {
 
     const classes = useStyles();
 
+    const updateHandler = () => {
+      
+
+    }
+
   return (
     <div className={classes.border}>
     <Box sx={{ minWidth: 400 }}>
@@ -174,10 +179,9 @@ export default function BigCard(props) {
       </div>
 
       <div className={classes.paperStyle}>
-          <PersonOutlineIcon className={classes.iconPerson}/>
-          <div className={classes.assigned}>
-            {}
-          </div>
+          <Button size="small" onClick={updateHandler()}>
+            {props.action}
+          </Button>
 
       </div>
         </div>

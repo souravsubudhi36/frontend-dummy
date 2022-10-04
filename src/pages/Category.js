@@ -13,6 +13,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "../components/Modal";
 import BasicCard from "../components/DataCard";
+import DataTable from "../components/Table";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -69,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
     width: "40%",
     height: 55,
     [theme.breakpoints.up("md")]: {
-      width: "20%",
+      width: "30%",
       margin: theme.spacing(2, 2),
     },
     borderRadius: "15px",
@@ -140,7 +141,7 @@ const Category = (props) => {
         console.log(response)
         console.log(response.data)
         setCategoryData( [...response.data] )
-        console.log(categoryData.users)
+        // console.log(categoryData)
       })
       toggleModal(!modalShown);
 
@@ -178,14 +179,8 @@ const Category = (props) => {
                   }
                   >
                     
-                 {categoryData.map(( name) => (
-
-                    <BasicCard serial_no =  {name.serial_no} title = {name.title} revision = {name.revision} category = {name.category} document_url = {name.document_url} />
-                  
-             
-                ))}
-                    <h1>Hello</h1>
-                  </Modal>
+                  <DataTable data={categoryData}/>
+                </Modal>
             </div>
         </div>
     </div>

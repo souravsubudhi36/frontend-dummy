@@ -90,13 +90,18 @@ const useStyles = makeStyles((theme) => ({
   },
   color:{
     background: "#000066"
+  },
+  image:{
+    height:70,
+    width:238,
+    marginTop:'139%'
   }
 })) 
 
 //features in the side bar
 const menu = [
     {
-        name: 'Home',
+        name: 'Document Repository',
         route: ''
     },
     
@@ -131,7 +136,7 @@ export default function ParentSideNavbar(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  const classes = useStyles();
   const drawer = (
     <div>
       <Toolbar />
@@ -139,7 +144,7 @@ export default function ParentSideNavbar(props) {
         
       <List  >
       <ListItemButton onClick={handleClick}>
-        <ListItemIcon >
+        <ListItemIcon style={{color: "white"}}>
         <AnalyticsIcon/>
         </ListItemIcon>
         <ListItemText primary="Hub" />
@@ -150,7 +155,7 @@ export default function ParentSideNavbar(props) {
         {
             hubMenu.map((text , index) => (
           <ListItemButton style={{color: "white"}} component="a" href={`/${text.route}`} sx={{ pl: 4 }}>
-            <ListItemIcon>
+            <ListItemIcon style={{color: "white"}}>
               {hubIconRendering(index)}
             </ListItemIcon>
             <ListItemText primary={text.name} style= {{color: "white"}} />
@@ -162,7 +167,7 @@ export default function ParentSideNavbar(props) {
     
          
             <ListItemButton style= {{color: "white"}} component="a" href={`/${text.route}`}>
-            <ListItemIcon>
+            <ListItemIcon style={{color: "white"}}>
               {IconRendering(index)}
               </ListItemIcon>
               <ListItemText primary={text.name} style= {{color: "white"}} />
@@ -174,13 +179,16 @@ export default function ParentSideNavbar(props) {
       
       </List>
       <Divider />
+      <div>
+        <img src = "./modifiedIosLogo.png" className={classes.image}/>
+      </div>
      
     </div>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
-  const classes = useStyles();
+  
 
   return (
     <Box sx={{ display: 'flex' }}   >
@@ -241,6 +249,8 @@ export default function ParentSideNavbar(props) {
           open
         >
           {drawer}
+
+          
         </Drawer>
       </Box>
      

@@ -31,20 +31,20 @@ const drawerWidth = 240;
 
 const users = [
     {
-      value: 'user@example.com',
-      label: 'User',
+      value: 'Sourav@example.com',
+      label: 'Sourav',
     },
     {
-      value: 'user2@example.com',
-      label: 'User2',
+      value: 'Prathmesh@example.com',
+      label: 'Prathmesh',
     },
     {
-      value: 'user3@example.com',
-      label: 'User3',
+      value: 'Rajwardhan@example.com',
+      label: 'Rajwardhan',
     },
     {
-      value: 'user4@example.com',
-      label: 'User4',
+      value: 'Shubham@example.com',
+      label: 'Shubham',
     },
   ];
 
@@ -167,13 +167,13 @@ const useStyles = makeStyles((theme) => ({
       borderWidth: '1px',
       borderStyle: 'solid'
   },
-  input: {
-    display: 'none',
-  },
+  // input: {
+  //   display: 'none',
+  // },
   submit: {
     fontFamily: "Quicksand, sans-serif",
     fontWeight: "700",
-    backgroundColor: "#00004d",
+    backgroundColor: "#53B262",
     color: "#fff",
     margin: theme.spacing(0, 0),
     width: "300px",
@@ -288,7 +288,7 @@ const Newtask = () => {
         <Grid>
           <div className={classes.paperStyle}>
             <Grid align="center">
-              <h4 className={classes.heading}>Add Documents</h4>
+              <h4 className={classes.heading}>New Plan</h4>
             </Grid>
             <div className={classes.extra1}>
               <TextField
@@ -357,11 +357,12 @@ const Newtask = () => {
                 type="file"
                 onChange={onFileChangeHandler}
             />
-            <label htmlFor="contained-button-file">
+            {/* <label htmlFor="contained-button-file">
                 <Button variant="contained"  component="span" className={classes.btnstyle}>
                Attach 
                 </Button>
-            </label>
+            </label> */}
+           
 
             <Button
                 type="submit"

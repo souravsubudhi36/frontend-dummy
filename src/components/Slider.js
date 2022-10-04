@@ -53,8 +53,8 @@ const useStyles = makeStyles((theme) => ({
     
   },
   spacing:{
-    borderRadius: "15px",
-    margin: theme.spacing(2)
+    
+    padding: theme.spacing(2)
   }
 })) 
 
@@ -65,12 +65,13 @@ function valuetext(value) {
 
  
 
-  return `${value}°C`;
+  return `${value}`;
 }
 
-export default function DiscreteSliderLabel() {
+export default function DiscreteSliderLabel({data}) {
 
   const classes = useStyles();
+
   
   return (
     <Card variant="outlined"  style={{borderRadius: "15px"}} >
@@ -78,8 +79,29 @@ export default function DiscreteSliderLabel() {
         <div className={classes.background}>
         Members
          </div>
+
+         {data.map((text , index) => {
+          const arr = [];
+          arr.push(text);
+          return(
+            
+          <div key={index} className={classes.spacing}>
+          <Slider
+      
+              defaultValue={text.count}
+              getAriaValueText={valuetext}
+              step={1}
+               marks={arr}
+              valueLabelDisplay="auto"
+              
+      />
+      <div>
+        {text.assigned_to}
+      </div>
+      </div>
+         )})}
     
-      <Slider
+      {/* <Slider
       
         defaultValue={80}
         getAriaValueText={valuetext}
@@ -107,7 +129,7 @@ export default function DiscreteSliderLabel() {
         marks={marks}
         valueLabelDisplay="auto"
         className={classes.spacing}
-      />
+      /> */}
 
     </Card>
   );

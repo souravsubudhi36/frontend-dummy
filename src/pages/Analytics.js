@@ -25,7 +25,7 @@ import Grid from '@mui/material/Grid';
 import { createTheme } from '@mui/system';
 import PieChartCard from '../components/PieChartCard';
 import BarChartCard from '../components/BarChartCard';
-import SliderSizes from '../components/Slider';
+import DiscreteSliderLabel  from '../components/Slider';
 import BigCard from '../components/BigCard';
 import axios from 'axios';
 
@@ -134,7 +134,7 @@ export default function Analytics(props) {
   useEffect(() => {
 
     const getPendingData = async () => {
-      await axios.get("http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/user%40example.com/tasks")
+      await axios.get("http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/Sourav%40example.com/tasks")
       .then((response) => {
         setPendingData([...response.data.pending]);
       })
@@ -176,14 +176,14 @@ export default function Analytics(props) {
               </Grid>
                 
               <Grid item xs = {12} sm = {8} >
-                <SliderSizes/>
+                <DiscreteSliderLabel data = {userData}/>
               </Grid>
             </Grid>
           </Grid>
 
 
           <Grid item xs = {12} sm = {4} spacing={4}>
-            <BigCard data = {pendingData} status = "Pending"/>
+            <BigCard data = {pendingData} status = "Pending" action = "Completed"/>
           </Grid>
          
         </Grid>

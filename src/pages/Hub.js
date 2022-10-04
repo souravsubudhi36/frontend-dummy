@@ -65,7 +65,7 @@ export default function Hub(props) {
   useEffect(() => {
 
     const getData = async () => {
-      await axios.get("http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/user%40example.com/tasks")
+      await axios.get("http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/Sourav%40example.com/tasks")
       .then((res) => {
         console.log(res.data)
         console.log(res.data.pending)
@@ -83,7 +83,15 @@ export default function Hub(props) {
     getData();
     console.log(pendingData);
   }, []);
-  const classes = useStyles();
+
+  
+  const statusModifyHandler = (serial_no) => {
+
+    const modifyData = async () => {
+      await axios.put(`http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/tasks/${serial_no}`)
+      
+    }
+  }
 
   return (
       <Box
@@ -92,10 +100,10 @@ export default function Hub(props) {
       >
         <Grid container spacing={4} >
           <Grid item xs = {12} md = {4} >
-            <BigCard data = {pendingData} status="pending" />
+            <BigCard data = {pendingData} status="pending" action="Completed" />
           </Grid>
           <Grid item xs = {12} md = {4}>
-              <BigCard data = { completedData } status = "Completed"/>
+              <BigCard data = { completedData } status = "Completed" action="Pending"/>
           </Grid>
           <Grid item xs = {12} md = {4}>
             <BigCard data = { overdueData } status = "Overdue"/>

@@ -156,6 +156,19 @@ const bull = (
                 
                 </PieSeries>
             </Chart>
+            {data.map((text) =>
+            <div >
+              <div>
+              Status : {text.status}
+              </div>
+
+              <div>
+              Count : {text.count}
+              </div>
+
+              
+            </div>
+              )}
 
         </Card>
    

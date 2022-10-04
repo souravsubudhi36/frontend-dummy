@@ -8,7 +8,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { Button } from "@material-ui/core";
 import axios from "axios";
 import Modal from "../components/Modal";
-import BasicCard from "../components/DataCard";
+import DataTable from "../components/Table";
 
 const useStyles = makeStyles((theme) => ({
  
@@ -197,11 +197,8 @@ const Search = (props) => {
                   }
                   }
                   >
-                     {titleData.map(( name) => (
-
-                    <BasicCard serial_no =  {name.serial_no} title = {name.title} revision = {name.revision} category = {name.category} document_url = {name.document_url}/>
-
-                    ))}
+                  <DataTable data={titleData}/>
+                    
                   </Modal>
         </div>
     </div>

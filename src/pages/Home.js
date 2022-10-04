@@ -85,7 +85,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       maxWidth: "35%",
       minWidth: "35%",
-    },
+      margin: theme.spacing(-1,1),
+    }
   },
   measureHeight:{
     margin: theme.spacing(24, 4),
@@ -120,7 +121,7 @@ const Home = () => {
           <Category />
         </div>
         <Divider orientation="vertical" flexItem variant="middle"  className={classes.measureHeight}/>
-        <div className={classes.rightmaxwidth}>
+        <div className={classes.rightmaxwidth} >
           <Form/>
         </div>
       </div>

@@ -13,6 +13,8 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from '@material-ui/core/MenuItem';
 import DateFnsUtils from '@date-io/date-fns';
+import SuccessAlert from '../components/Alert/SuccessAlert';
+import Alert from '@mui/material/Alert';
 
 
 import {
@@ -144,6 +146,7 @@ const Form = (props) => {
   const [selectedDate, setSelectedDate] = React.useState(null);
   const [uploadFile, setUploadFile] = React.useState(null);
   const [documentUri , setDocumentUri] = React.useState("");
+  const [statusCode , setStatusCode] = React.useState(null);
 
   const classes = useStyles();
  
@@ -184,12 +187,15 @@ const Form = (props) => {
         document_url: documentUri
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.status);
+        setStatusCode(res.status);
+
 
       }
       )
       .catch((error) => {
         console.log(error);
+        setStatusCode(error);
       });
   }
 
@@ -216,6 +222,7 @@ const Form = (props) => {
         })
         .catch((error) => {
           console.log(error)
+          
         })
         
   }
@@ -325,6 +332,11 @@ const Form = (props) => {
                 >
                 Submit 
             </Button>
+            {
+              statusCode ?
+              statusCode  === 201 ? <Alert severity='success'>Submitted Successfully</Alert> : <Alert severity='error'>Fail</Alert>
+              : null
+            }
             </div>
           </div>
         </Grid>
