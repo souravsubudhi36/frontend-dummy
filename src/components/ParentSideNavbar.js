@@ -147,7 +147,7 @@ export default function ParentSideNavbar(props) {
         <ListItemIcon style={{color: "white"}}>
         <AnalyticsIcon/>
         </ListItemIcon>
-        <ListItemText primary="Hub" />
+        <ListItemText primary="H&S Data" />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>

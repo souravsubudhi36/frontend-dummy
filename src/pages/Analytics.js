@@ -97,6 +97,7 @@ export default function Analytics(props) {
   const [priorityData , setPriorityData] = React.useState([]);
   const [userData , setUserData] = React.useState([]);
   const [pendingData , setPendingData] = useState(null);
+  const [refresh, setRefresh] = useState(false);
 
   const handleAddStatus = ([...data]) => {
     setStatusData((statusData) => [
@@ -129,7 +130,7 @@ export default function Analytics(props) {
     };
 
     getData();
-  } , []);
+  } , [refresh]);
 
   useEffect(() => {
 
@@ -145,7 +146,32 @@ export default function Analytics(props) {
 
     getPendingData();
     console.log(pendingData);
-  } , []);
+  } , [refresh]);
+
+  const modifyStatusHandler = (data) => {
+
+    console.log(data);
+    axios
+      .put(`http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/tasks/${data.serial_no}` , {
+        serial_no: data.serial_no,
+        name: data.name,
+        assigned_to: "Sourav@example.com",
+        priority: data.priority,
+        status: "Completed",
+        due_date: data.due_date,
+        document_url: data.document_url
+      })
+      .then((res) => {
+        console.log(res);
+        
+        setRefresh(!refresh)
+
+      }
+      )
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   
   
@@ -183,7 +209,7 @@ export default function Analytics(props) {
 
 
           <Grid item xs = {12} sm = {4} spacing={4}>
-            <BigCard data = {pendingData} status = "Pending" action = "Completed"/>
+            <BigCard data = {pendingData} status = "Pending" action = "Completed" handler= {modifyStatusHandler}/>
           </Grid>
          
         </Grid>

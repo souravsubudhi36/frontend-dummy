@@ -25,6 +25,7 @@ import {
     KeyboardDatePicker,
   } from '@material-ui/pickers';
 import axios from "axios";
+import Alert from '@mui/material/Alert';
 
 
 const drawerWidth = 240; 
@@ -191,6 +192,7 @@ const Newtask = () => {
 
   const [title, setTitle] = useState("");
   const [user, setUser] = React.useState('');
+  const [statusCode , setStatusCode] = React.useState(null);
  
 
   const [selectedDate, setSelectedDate] = React.useState(null);
@@ -266,9 +268,11 @@ const Newtask = () => {
       })
       .then((response) => {
         console.log(response);
+        setStatusCode(response.status);
       })
       .catch((error) => {
         console.log(error);
+        setStatusCode(error);
       });
 
 
@@ -293,7 +297,7 @@ const Newtask = () => {
             <div className={classes.extra1}>
               <TextField
                 id="outlined-basic"
-                label="Document Title"
+                label="Plan Name"
                 variant="outlined"
                 type="text"
                 className={classes.field}
@@ -339,7 +343,7 @@ const Newtask = () => {
                 margin="outlined"
                 inputVariant="outlined"
                 id="date-picker-dialog"
-                label="Date"
+                label="Due date"
                 format="MM/dd/yyyy"
                 value={selectedDate}
                 onChange={handleDateChange}
@@ -385,6 +389,11 @@ const Newtask = () => {
             >
             Submit
             </Button>
+            {
+              statusCode ?
+              statusCode  === 201 ? <Alert severity='success'>Submitted Successfully</Alert> : <Alert severity='error'>Fail</Alert>
+              : null
+            }
         </Grid>
       </div>
     

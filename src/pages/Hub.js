@@ -59,7 +59,7 @@ export default function Hub(props) {
   const [pendingData , setPendingData] = useState(null);
   const [completedData , setCompletedData] = useState(null);
   const [overdueData , setOverdueData] = useState(null);
-
+  const [refresh, setRefresh] = useState(false);
   
 
   useEffect(() => {
@@ -82,16 +82,34 @@ export default function Hub(props) {
 
     getData();
     console.log(pendingData);
-  }, []);
+  }, [refresh]);
 
   
-  const statusModifyHandler = (serial_no) => {
+  const modifyStatusHandler = (data) => {
 
-    const modifyData = async () => {
-      await axios.put(`http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/tasks/${serial_no}`)
-      
-    }
+    console.log(data);
+    axios
+      .put(`http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/tasks/${data.serial_no}` , {
+        serial_no: data.serial_no,
+        name: data.name,
+        assigned_to: "Sourav@example.com",
+        priority: data.priority,
+        status: "Completed",
+        due_date: data.due_date,
+        document_url: data.document_url
+      })
+      .then((res) => {
+        console.log(res);
+        
+        setRefresh(!refresh)
+
+      }
+      )
+      .catch((error) => {
+        console.log(error);
+      });
   }
+
 
   return (
       <Box
@@ -100,10 +118,10 @@ export default function Hub(props) {
       >
         <Grid container spacing={4} >
           <Grid item xs = {12} md = {4} >
-            <BigCard data = {pendingData} status="pending" action="Completed" />
+            <BigCard data = {pendingData} status="pending" action="Completed" handler= {modifyStatusHandler}/>
           </Grid>
           <Grid item xs = {12} md = {4}>
-              <BigCard data = { completedData } status = "Completed" action="Pending"/>
+              <BigCard data = { completedData } status = "Completed" action="Pending" handler = {modifyStatusHandler}/>
           </Grid>
           <Grid item xs = {12} md = {4}>
             <BigCard data = { overdueData } status = "Overdue"/>

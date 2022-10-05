@@ -174,21 +174,21 @@ export default function BigCard(props) {
               {text.due_date}
           </div>
       </div>
-
-      <div className={classes.paperStyle}>
-          <Button size="small" >
-            {props.action}
+      {props.status === "Overdue" ? null : <div className={classes.paperStyle}>
+          <Button size="small" onClick={() => props.handler(text)}>
+          {props.status == 'pending' ? "Completed" : "Pending"}
           </Button>
 
-      </div>
+      </div>}
+      
         </div>
         
       ) }
       
 
-       <CardActions>
+       {/* <CardActions>
         <Button size="small">Learn More</Button>
-      </CardActions>
+      </CardActions> */}
 
       </Card>
     </Box>
