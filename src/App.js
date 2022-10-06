@@ -7,6 +7,7 @@ import Newtask from "./pages/NewTask";
 import Analytics from "./pages/Analytics";
 import ParentSideNavbar from "./components/ParentSideNavbar";
 import MocChangeRequest from "./pages/MocChangeRequest";
+import ImpactAssessment from "./pages/ImpactAssessment"
 
 
 
@@ -21,6 +22,7 @@ const App = () => {
          <Route path= "/newtask" exact component={Newtask} />
          <Route path = "/Analytics" exact component={Analytics}/>
          <Route path="/ChangeRequest" exact component={MocChangeRequest}/>
+         <Route path="/ImpactAssessment" exact component={ImpactAssessment}/>
           {/* <div>
           <SideNavbar/>
           <Route path= "/hub" exact component={Hub} />

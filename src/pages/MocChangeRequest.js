@@ -1,167 +1,341 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+  import 'date-fns';
+  import React, { useState, useContext } from "react";
+  import axios from "axios";
+  import {
+    Grid,
+    Paper,
+    Avatar,
+    TextField,
+    Button,
+    Typography,
+    Link,
+  } from "@material-ui/core";
+  import { makeStyles } from "@material-ui/core/styles";
+  import MenuItem from '@material-ui/core/MenuItem';
+  import DateFnsUtils from '@date-io/date-fns';
+  import SuccessAlert from '../components/Alert/SuccessAlert';
+  import Alert from '@mui/material/Alert';
+  import Box from '@mui/material/Box';
 
-const drawerWidth = 240;
 
-export default function MocChangeRequest() {
+  import {
+      MuiPickersUtilsProvider,
+      KeyboardTimePicker,
+      KeyboardDatePicker,
+    } from '@material-ui/pickers';
+import { ClassNames } from '@emotion/react';
+
+
+const categories = [
+  {
+    value: 'Hardware',
+    label: 'Hardware',
+  },
+  {
+    value: 'Software',
+    label: 'Software',
+  },
+  {
+    value: 'Chemical',
+    label: 'Chemical',
+  },
+  {
+    value: 'Procedure',
+    label: 'Procedure',
+  }
+]
+
+const Priorities = [
+  {
+    value: "High",
+    label: "High",
+  },
+  {
+    value: "Medium",
+    label: "Medium",
+  },
+  {
+    value: "Low",
+    label: "Low"
+  }
+
+]
+
+const drawerWidth = 240
+
+const useStyles = makeStyles((theme) => ({
+
+  border:{
+    boxShadow: "0px 0px 10px  #B3A9A2",
+    margin: theme.spacing(0.5 , 0.5),
+    borderRadius: "10px",
+    [theme.breakpoints.up("md")]: {
+      margin: theme.spacing(1 , 6),
+      borderRadius: "30px"
+    }
+  },
+  paperStyle:{
+    padding: 1,
+    [theme.breakpoints.up("md")]: {
+      fontSize: "30px",
+      padding: theme.spacing(6, 1),
+   
+    },
+  },
+  heading: {
+    [theme.breakpoints.down("md")]: {
+      fontSize: "20px",
+    },
+    fontFamily: "Quicksand, sans-serif",
+      fontWeight: "900",
+      fontSize: "40px",
+      color: "#4d4d33",
+      letterSpacing: ".02em",
+  },
+  extra: {
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    textAlign: "center",
+    flexGrow: 1,
+    margin: theme.spacing(0, 0),
+    flexWrap: "wrap",
+    [theme.breakpoints.up("md")]: {
+      margin: theme.spacing(0, 10),
+    },
+    paddingTop: 120
+  },
+  field: {
+    color: "#eeb7ba",
+    margin: theme.spacing(1, 2),
+    width: "90%",
+    [theme.breakpoints.up("md")]: {
+      width: "70%",
+    },
+  },
+  btnstyle: {
+    fontFamily: "Quicksand, sans-serif",
+    fontWeight: "700",
+    backgroundColor: "#00004d",
+    color: "#fff",
+    margin: theme.spacing(1, 2),
+    width: "90%",
+    height: 40,
+    [theme.breakpoints.up("md")]: {
+      width: "40%",
+      height: 50,
+    },
+    borderRadius: "20px",
+    textTransform: "none"
+  },
+
+
+
+}))
+
+
+
+
+const MocChangeRequest = (props) =>{
+
+  const classes = useStyles();
+
+  const [category , setCategory] = React.useState("");
+  const [selectedDate, setSelectedDate] = React.useState(null);
+  const [priority , setPriority] = React.useState("");
+  const [dueDate , setDueDate] = React.useState(null);
+
+
+  const handleCategoryChange = (event) => {
+    setCategory(event.target.value);
+  }
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  }
+
+  const handlePriorityChange = (event) => {
+    setPriority(event.target.value);
+  }
+
+  const handleDueDateChange = (date) => {
+    setDueDate(date);
+  }
+
   return (
+
     <Box
-      component="form"
-      sx={{
-        flexGrow: 1,
-        '& .MuiTextField-root': { m: 1, width: '25ch',
-        ml: `${drawerWidth}px`,
-        width: { sm: `calc(100% - ${drawerWidth}px)`}
-         },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <div>
-       
+        component="main"
+        sx={{ flexGrow: 1, ml: `calc(10% + ${drawerWidth}px)`, width: { sm: `calc(80% - ${drawerWidth}px)` } }}
+      >
+    <div className={classes.border}>
+      <Grid>
+        <div className={classes.paperStyle}>
+        <Grid align="center">
+              <h4 className={classes.heading}>Change Request</h4>
+        </Grid>
+        <div className={classes.extra}>
         <TextField
-          disabled
-          id="outlined-required"
-          label="Required"
-          defaultValue="Project Name"
-          helperText="Enter Project Title"
+                id="outlined-basic"
+                label="Project Name"
+                variant="outlined"
+                type="text"
+                className={classes.field}
+      
+              />
+        <TextField
+                id="outlined-basic"
+                label="Change Request Number"
+                variant="outlined"
+                type="text"
+                className={classes.field}
+              />
+        <TextField
+                id='outlined-basic'
+                label="Department"
+                variant='outlined'
+                type='text'
+                className={classes.field}
+        />
+        <TextField
+            id='outlined-basic'
+            label="Area"
+            variant='outlined'
+            type='text'
+            className={classes.field}
+        />
 
-        />
-       
-        <TextField
-          id="outlined-read-only-input"
-          label="Read Only"
-          defaultValue="Hello World"
-          InputProps={{
-            readOnly: true,
-          }}
-        />
-        <TextField
-          id="outlined-number"
-          label="Number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <TextField id="outlined-search" label="Search field" type="search" />
-        <TextField
-          id="outlined-helperText"
-          label="Helper text"
-          defaultValue="Default Value"
-          helperText="Some important text"
+        <TextField 
+            id='outlined-select-currency'
+            select
+            label="Select"
+            value={category}
+            onChange={handleCategoryChange}
+            className= {classes.field}
+            helperText= "Please select Category"
+            variant='outlined'
+>
+           {categories.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+              {option.label}
+              </MenuItem>
+           ))}
+           
+           </TextField>
 
-        />
-      </div>
-      <div>
         <TextField
-          required
-          id="filled-required"
-          label="Required"
-          defaultValue="Hello World"
-          variant="filled"
-        />
-        <TextField
-          disabled
-          id="filled-disabled"
-          label="Disabled"
-          defaultValue="Hello World"
-          variant="filled"
-        />
-        <TextField
-          id="filled-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          variant="filled"
+            id='outlined-read-only-input'
+            label="Requester Name"
+            defaultValue="Requester"
+            variant='outlined'
+            className={classes.field}
+            InputProps={{
+              readOnly: true,
+            }}
+            ></TextField>
+
+        <TextField 
+            id='outlined-read-only-input'
+            label="Requester Contact"
+            defaultValue="2349875671"
+            variant='outlined'
+            className={classes.field}
+            InputProps={{
+              readOnly: true,
+            }}
         />
         <TextField
-          id="filled-read-only-input"
-          label="Read Only"
-          defaultValue="Hello World"
-          InputProps={{
-            readOnly: true,
-          }}
-          variant="filled"
+            id='outlined-basic'
+            label="Item to be changed"
+            variant='outlined'
+            type='text'
+            className={classes.field}
         />
         <TextField
-          id="filled-number"
-          label="Number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="filled"
-        />
+            id='outlined-basic'
+            label="Change description"
+            variant='outlined'
+            type='text'
+            className={classes.field}
+            />
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+            margin='outlined'
+            inputVariant='outlined'
+            id='date-picker-dialog'
+            label="Date"
+            format='MM/dd/yyyy'
+            value={selectedDate}
+            className={classes.field}
+            onChange= {handleDateChange}
+            KeyboardButtonProps={{
+              'aria-label': 'change date'
+            }}
+            />
+        </MuiPickersUtilsProvider>
+
+        <TextField 
+            id='outlined-select-currency'
+            select
+            label="Select"
+            value={priority}
+            onChange={handlePriorityChange}
+            className= {classes.field}
+            helperText= "Please select Priority"
+            variant='outlined'
+>
+           {Priorities.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+              {option.label}
+              </MenuItem>
+           ))}
+           
+           </TextField>
+
+           <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+            margin='outlined'
+            inputVariant='outlined'
+            id='date-picker-dialog'
+            label="Expected Timeline"
+            format='MM/dd/yyyy'
+            value={dueDate}
+            className={classes.field}
+            onChange= {handleDueDateChange}
+            KeyboardButtonProps={{
+              'aria-label': 'select date'
+            }}
+            />
+        </MuiPickersUtilsProvider>
+
         <TextField
-          id="filled-search"
-          label="Search field"
-          type="search"
-          variant="filled"
-        />
-        <TextField
-          id="filled-helperText"
-          label="Helper text"
-          defaultValue="Default Value"
-          helperText="Some important text"
-          variant="filled"
-        />
-      </div>
-      <div>
-        <TextField
-          required
-          id="standard-required"
-          label="Required"
-          defaultValue="Hello World"
-          variant="standard"
-        />
-        <TextField
-          disabled
-          id="standard-disabled"
-          label="Disabled"
-          defaultValue="Hello World"
-          variant="standard"
-        />
-        <TextField
-          id="standard-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          variant="standard"
-        />
-        <TextField
-          id="standard-read-only-input"
-          label="Read Only"
-          defaultValue="Hello World"
-          InputProps={{
-            readOnly: true,
-          }}
-          variant="standard"
-        />
-        <TextField
-          id="standard-number"
-          label="Number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="standard"
-        />
-        <TextField
-          id="standard-search"
-          label="Search field"
-          type="search"
-          variant="standard"
-        />
-        <TextField
-          id="standard-helperText"
-          label="Helper text"
-          defaultValue="Default Value"
-          helperText="Some important text"
-          variant="standard"
-        />
-      </div>
+            id='outlined-basic'
+            label="Expected Cost"
+            variant='outlined'
+            type='text'
+            className={classes.field}
+            />
+
+        <Button
+                type="submit"
+                variant="contained"
+                className={classes.btnstyle}
+                
+                >
+                Submit 
+            </Button>
+        
+        
+
+            
+          
+        </div>
+
+        </div>
+      </Grid>
+    </div>
     </Box>
-  );
+  )
 }
+
+export default MocChangeRequest;

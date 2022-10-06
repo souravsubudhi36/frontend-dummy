@@ -135,7 +135,7 @@ export default function Analytics(props) {
   useEffect(() => {
 
     const getPendingData = async () => {
-      await axios.get("http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/Sourav%40example.com/tasks")
+      await axios.get("http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/sourav.k%40sparrowrms.in/tasks")
       .then((response) => {
         setPendingData([...response.data.pending]);
       })
@@ -155,7 +155,7 @@ export default function Analytics(props) {
       .put(`http://ec2-13-233-71-160.ap-south-1.compute.amazonaws.com/tasks/${data.serial_no}` , {
         serial_no: data.serial_no,
         name: data.name,
-        assigned_to: "Sourav@example.com",
+        assigned_to: "sourav.k@sparrowrms.in",
         priority: data.priority,
         status: "Completed",
         due_date: data.due_date,

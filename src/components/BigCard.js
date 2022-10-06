@@ -13,6 +13,12 @@ import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
 import Brightness1OutlinedIcon from '@mui/icons-material/Brightness1Outlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import PriorityHighSharpIcon from '@mui/icons-material/PriorityHighSharp';
+import WarningAmberSharpIcon from '@mui/icons-material/WarningAmberSharp';
+import List from '@mui/material/List';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import { ListItemText } from "@material-ui/core";
+import { color } from "@mui/system";
 
 const bull = (
   <Box
@@ -30,8 +36,9 @@ const useStyles = makeStyles((theme) => ({
         height: "40px",
         borderRadius: "13px",
         padding: theme.spacing(1, 2),
-        margin: theme.spacing(0, 0,6, 0)
-
+        margin: theme.spacing(0, 0,6, 0),
+        fontFamily: "Quicksand, sans-serif",
+        fontWeight: "900",
     },
 
     paperStyle: {
@@ -45,6 +52,8 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "left",
         flexGrow: 1,
         flexWrap: "wrap",
+        fontFamily: "Quicksand, sans-serif",
+        fontWeight: "400",
       },
     },
     heading: {
@@ -56,6 +65,8 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "28px",
         color: "#4d4d33",
         letterSpacing: ".02em",
+        fontFamily: "Quicksand, sans-serif",
+        fontWeight: "900",
       },
     field: {
       color: "#eeb7ba",
@@ -69,14 +80,14 @@ const useStyles = makeStyles((theme) => ({
     btnstyle: {
       fontFamily: "Quicksand, sans-serif",
       fontWeight: "700",
-      backgroundColor: "#B3A9A2",
+      backgroundColor: "#00004d",
       color: "#fff",
-      margin: theme.spacing(1, 1),
-      width: "40%",
-      height: 55,
+      margin: theme.spacing(1, 10),
+      width: "30%",
+      height: 40,
       [theme.breakpoints.up("md")]: {
-        width: "20%",
-        margin: theme.spacing(2, 2),
+        width: "30%",
+        // margin: theme.spacing(1, 10),
       },
       borderRadius: "15px",
       textTransform: "none"
@@ -107,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(0, 16,0,0),
     },
     due:{
-
+      fontWeight: "600",
     },
     date: {
       margin: theme.spacing(1, 1,1,4),
@@ -154,32 +165,41 @@ export default function BigCard(props) {
 
        {props.data && props.data.map((text, index) =>
         <div key={index}>
-        <div className={classes.paperStyle}>
-            <Brightness1OutlinedIcon className={classes.icon}/>
-            <div>
-                {text.name}
-                {/* {props.data[0].priority} */}
-            </div>
-        </div>
-
-      <Divider className={classes.divider} />
-       
-        
           <div className={classes.paperStyle}>
-            <CalendarTodayOutlinedIcon className={classes.iconCalendar}/>
-            <div className={classes.due}>
-              Due on
-            </div>
-            <div  className={classes.date}>
-              {text.due_date}
+              <Brightness1OutlinedIcon className={classes.icon}/>
+              <div>
+                  {text.name}
+                  {/* {props.data[0].priority} */}
+              </div>
           </div>
-      </div>
-      {props.status === "Overdue" ? null : <div className={classes.paperStyle}>
-          <Button size="small" onClick={() => props.handler(text)}>
-          {props.status == 'pending' ? "Completed" : "Pending"}
-          </Button>
 
-      </div>}
+        <Divider className={classes.divider} />
+        
+          
+            <div className={classes.paperStyle}>
+              <CalendarTodayOutlinedIcon className={classes.iconCalendar}/>
+              <div className={classes.due}>
+                Due on
+              </div>
+              <div  className={classes.date}>
+                {text.due_date}
+              </div>
+            </div>
+            {props.status === "Overdue" ? <div className={classes.paperStyle}>
+              {text.escalated == true ? 
+                <div className={classes.paperStyle}>
+              <WarningAmberSharpIcon className={classes.iconCalendar} style={{color:"red"}}/>
+              <div className={classes.due}>
+                Escalated
+              </div>
+              </div> : null}
+            </div> : 
+            <div className={classes.paperStyle}>
+              <Button variant="contained" className={classes.btnstyle} size="small" onClick={() => props.handler(text)}  >
+              {props.status == 'pending' ? "Completed" : "Pending"}
+              </Button>
+
+            </div>}
       
         </div>
         

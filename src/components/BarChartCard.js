@@ -16,14 +16,17 @@ import {
 
 const useStyles = makeStyles((theme) => ({
    
-    background:{
-        backgroundColor: "#e6e6ff",
-        height: "40px",
-        borderRadius: "13px",
-        padding: theme.spacing(1, 2),
-        margin: theme.spacing(0, 0,0, 0)
-
-    },
+  background:{
+    backgroundColor: "#e6e6ff",
+    height: "40px",
+    borderRadius: "13px",
+    padding: theme.spacing(1, 2),
+    // margin: theme.spacing(0, 0,0, 0),
+    fontFamily: "Quicksand, sans-serif",
+    fontWeight: "900",
+    // letterSpacing: ".02em",
+    fontSize: "20px",
+  },
 
     paperStyle: {
       padding: 1,
@@ -109,7 +112,13 @@ const useStyles = makeStyles((theme) => ({
       width:"30px",
       margin: theme.spacing(0,0.8)
 
-    }
+    },
+    spacing:{
+      margin: theme.spacing(4, 1),
+      fontFamily: "Quicksand, sans-serif",
+    fontWeight: "900",
+    
+    },
     
   }));
 
@@ -121,13 +130,14 @@ const BarChartCard = ({data}) =>  {
         <Card variant="outlined" style={{borderRadius: "15px"}}>
   
         <div className={classes.background}>
-        Complicancy Status
+        Priority
          </div>
       <Chart
         id="chart"
         palette="Soft"
-        width= {400}
-        dataSource={data}>
+        width= {250}
+        dataSource={data}
+        className={classes.spacing}>
         <CommonSeriesSettings
           argumentField="priority"
           valueField="count"

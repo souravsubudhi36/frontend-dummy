@@ -19,7 +19,10 @@ const useStyles = makeStyles((theme) => ({
         height: "40px",
         borderRadius: "13px",
         padding: theme.spacing(1, 2),
-        margin: theme.spacing(0, 0,0, 0)
+        margin: theme.spacing(0, 0,0, 0),
+        fontFamily: "Quicksand, sans-serif",
+        fontWeight: "900",
+        fontSize: "20px",
 
     },
   paperStyle: {
@@ -53,8 +56,12 @@ const useStyles = makeStyles((theme) => ({
     
   },
   spacing:{
-    
     padding: theme.spacing(2)
+  },
+  text:{
+    fontFamily: "Quicksand, sans-serif",
+    fontWeight: "600",
+    fontSize: "14px",
   }
 })) 
 
@@ -62,23 +69,17 @@ const useStyles = makeStyles((theme) => ({
 
 
 function valuetext(value) {
-
- 
-
   return `${value}`;
 }
 
 export default function DiscreteSliderLabel({data}) {
-
   const classes = useStyles();
-
-  
   return (
     <Card variant="outlined"  style={{borderRadius: "15px"}} >
 
         <div className={classes.background}>
-        Members
-         </div>
+          Members
+        </div>
 
          {data.map((text , index) => {
           const arr = [];
@@ -87,15 +88,13 @@ export default function DiscreteSliderLabel({data}) {
             
           <div key={index} className={classes.spacing}>
           <Slider
-      
               defaultValue={text.count}
               getAriaValueText={valuetext}
               step={1}
                marks={arr}
-              valueLabelDisplay="auto"
-              
-      />
-      <div>
+              valueLabelDisplay="auto"    
+          />
+      <div className={classes.text}>
         {text.assigned_to}
       </div>
       </div>

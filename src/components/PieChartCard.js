@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import { Stack } from "@devexpress/dx-react-chart";
+import Grid from '@mui/material/Grid';
 
 
 
@@ -26,12 +27,15 @@ const bull = (
   const useStyles = makeStyles((theme) => ({
    
       background:{
-          backgroundColor: "#e6e6ff",
-          height: "40px",
-          borderRadius: "13px",
-          padding: theme.spacing(1, 2),
-          margin: theme.spacing(0, 0,0, 0)
-  
+        backgroundColor: "#e6e6ff",
+        height: "40px",
+        borderRadius: "13px",
+        padding: theme.spacing(1, 2),
+        // margin: theme.spacing(0, 0,0, 0),
+        fontFamily: "Quicksand, sans-serif",
+        fontWeight: "900",
+        // letterSpacing: ".02em",
+        fontSize: "20px",
       },
   
       paperStyle: {
@@ -121,8 +125,22 @@ const bull = (
   
       },
       spacing:{
-        margin: theme.spacing(-6),
+        margin: theme.spacing(-12),
+        fontFamily: "Quicksand, sans-serif",
+      fontWeight: "900",
       
+      },
+      display:{
+        alignItems: "right",
+        justifyContent: "center",
+        textAlign: "left",
+        padding: theme.spacing(1, 2),
+        fontFamily: "Quicksand, sans-serif",
+        fontWeight: "900",
+      },
+      count:{
+        padding: theme.spacing(0, 0, 0, 2),
+        fontWeight: "400",
       }
       
     }));
@@ -149,26 +167,27 @@ const bull = (
                 className={classes.spacing}
             >
             <PieSeries valueField="count" 
-                argumentField="status" 
-                innerRadius={0.4} 
-                outerRadius = {0.5}
-               
-                >
-                
-                </PieSeries>
+              argumentField="status" 
+              innerRadius={0.4} 
+              outerRadius = {0.5}
+            >
+              </PieSeries>
             </Chart>
             {data.map((text) =>
-            <div >
-              <div>
-              Status : {text.status}
-              </div>
+            // <div className={classes.display} >
 
-              <div>
-              Count : {text.count}
-              </div>
+              <Grid container spacing={4} className={classes.display}>
+                <Grid item xs={6}> {text.status}  </Grid>
+                <Grid item xs={6}>  {text.count} </Grid>
+              </Grid>
+              
+
+              // <div className={classes.count}>
+              // {text.count}
+              // </div> 
 
               
-            </div>
+            // </div>
             
               )}
 

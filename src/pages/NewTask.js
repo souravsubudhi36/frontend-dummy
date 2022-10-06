@@ -32,7 +32,7 @@ const drawerWidth = 240;
 
 const users = [
     {
-      value: 'Sourav@example.com',
+      value: 'sourav.k@sparrowrms.in',
       label: 'Sourav',
     },
     {
