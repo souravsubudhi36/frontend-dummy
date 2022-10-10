@@ -33,7 +33,6 @@ export default function Modal({ children, shown, close }) {
           e.stopPropagation();
         }}
       >
-        <button onClick={close}>Close</button>
         {children}
       </div>
     </div>

@@ -177,17 +177,32 @@ const bull = (
             // <div className={classes.display} >
 
               <Grid container spacing={4} className={classes.display}>
-                <Grid item xs={6}> {text.status}  </Grid>
-                <Grid item xs={6}>  {text.count} </Grid>
+                <Grid item xs={4}> 
+                {text.status}
+                  </Grid>
+                <Grid item xs={4}>  {text.count} </Grid>
+                
+                {
+                  text.status === "Completed" ? <Grid item xs={4} >
+                  <img src = "./blue.png"
+                    width="25%"></img>
+                  </Grid> : 
+                 
+                    text.status === "Overdue" ? <Grid item xs={4}>
+                    <img src = "./orange.png"
+                    width="25%"></img>
+                    </Grid> : <Grid item xs={4}>
+                      <img src = "./green.png"
+                      width="25%"></img>
+                    </Grid>
+                
+                }
+                
+                
               </Grid>
               
 
-              // <div className={classes.count}>
-              // {text.count}
-              // </div> 
-
-              
-            // </div>
+      
             
               )}
 
@@ -198,47 +213,3 @@ const bull = (
   }
   
 
-//   <div className={classes.border}>
-//   <Box sx={{ minWidth: 400 }}>
-//     <Card variant="outlined" style={{borderRadius: "15px"}}>
-
-//     <div className={classes.background}>
-//       {props.status}
-//      </div>
-
-
-//     <div className={classes.paperStyle}>
-//         <Brightness1OutlinedIcon className={classes.icon}/>
-//         <div>
-//           Area 1 Total permits
-//         </div>
-//     </div>
-
-//     <Divider className={classes.divider} />
-
-//     <div className={classes.paperStyle}>
-//         <CalendarTodayOutlinedIcon className={classes.iconCalendar}/>
-//         <div className={classes.due}>
-//          Due on
-//         </div>
-
-//         <div  className={classes.date}>
-//          {props.date}
-//         </div>
-//     </div>
-
-//     <div className={classes.paperStyle}>
-//         <PersonOutlineIcon className={classes.iconPerson}/>
-//         <div className={classes.assigned}>
-//           {props.name}
-//         </div>
-
-//     </div>
-
-//      <CardActions>
-//       <Button size="small">Learn More</Button>
-//     </CardActions>
-
-//     </Card>
-//   </Box>
-//   </div>

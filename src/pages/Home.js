@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(0, 0),
     flexWrap: "wrap",
     [theme.breakpoints.up("md")]: {
-      padding: theme.spacing(4, 2),
+      padding: theme.spacing(0, 2),
     },
   },
   paperStyle: {
@@ -101,6 +101,10 @@ const useStyles = makeStyles((theme) => ({
       
       display: "none",
     },
+  },
+  image:{
+    height:30,
+    width:100,
   }
 }));
 
@@ -122,10 +126,19 @@ const Home = () => {
         </div>
         <Divider orientation="vertical" flexItem variant="middle"  className={classes.measureHeight}/>
         <div className={classes.rightmaxwidth} >
+          
+        {/* <div>
+          <img src = './sparrowrmslogo.png'
+          className={classes.image} 
+          />
+        </div> */}
           <Form/>
         </div>
+        
       </div>
+     
     </div>
+
     </Box>
   );
 };

@@ -19,6 +19,7 @@ import List from '@mui/material/List';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { ListItemText } from "@material-ui/core";
 import { color } from "@mui/system";
+import Alert from '@mui/material/Alert';
 
 const bull = (
   <Box
@@ -96,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
     border:{
   
       boxShadow: "0px 7px 7px -3px   #B3A9A2",
-      margin: theme.spacing(0.5, 0.5),
+      margin: theme.spacing(0.5, 4),
       borderRadius: "10px",
       position: "center",
       [theme.breakpoints.up("md")]: {
@@ -151,12 +152,20 @@ const useStyles = makeStyles((theme) => ({
 export default function BigCard(props) {
 
     const classes = useStyles();
+    const [hover, setHover] = useState(false);
+    const onHover = () => {
+      setHover(true);
+    };
+  
+    const onLeave = () => {
+      setHover(false);
+    };
 
     
 
   return (
     <div className={classes.border}>
-    <Box sx={{ minWidth: 400 }}>
+    <Box >
       <Card variant="outlined" style={{borderRadius: "15px" , minHeight: "700px"}}>
 
       <div className={classes.background}>
@@ -187,16 +196,21 @@ export default function BigCard(props) {
             </div>
             {props.status === "Overdue" ? <div className={classes.paperStyle}>
               {text.escalated == true ? 
-                <div className={classes.paperStyle}>
+                <div className={classes.paperStyle}
+                      onMouseEnter={onHover}
+                      onMouseLeave={onLeave}>
               <WarningAmberSharpIcon className={classes.iconCalendar} style={{color:"red"}}/>
               <div className={classes.due}>
                 Escalated
               </div>
+              {hover ? <Alert severity="error">Task has already exceeded the due date! Check your mail.</Alert> : null}
+              
+             
               </div> : null}
             </div> : 
             <div className={classes.paperStyle}>
               <Button variant="contained" className={classes.btnstyle} size="small" onClick={() => props.handler(text)}  >
-              {props.status == 'pending' ? "Completed" : "Pending"}
+              {props.status == 'Pending' ? "Completed" : "Pending"}
               </Button>
 
             </div>}

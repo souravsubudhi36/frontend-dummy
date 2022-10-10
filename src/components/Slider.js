@@ -92,7 +92,8 @@ export default function DiscreteSliderLabel({data}) {
               getAriaValueText={valuetext}
               step={1}
                marks={arr}
-              valueLabelDisplay="auto"    
+              valueLabelDisplay="auto"  
+              
           />
       <div className={classes.text}>
         {text.assigned_to}

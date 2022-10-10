@@ -114,11 +114,11 @@ export default function Hub(props) {
   return (
       <Box
         component="main"
-        sx={{ flexGrow: 1, ml: `${drawerWidth}px`, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        sx={{ flexGrow: 1, ml: `calc(${drawerWidth}px)`, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
-        <Grid container spacing={4} >
+        <Grid container spacing={0} >
           <Grid item xs = {12} md = {4} >
-            <BigCard data = {pendingData} status="pending" action="Completed" handler= {modifyStatusHandler}/>
+            <BigCard data = {pendingData} status="Pending" action="Completed" handler= {modifyStatusHandler}/>
           </Grid>
           <Grid item xs = {12} md = {4}>
               <BigCard data = { completedData } status = "Completed" action="Pending" handler = {modifyStatusHandler}/>

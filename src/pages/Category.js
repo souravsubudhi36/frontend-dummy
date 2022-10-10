@@ -145,13 +145,7 @@ const Category = (props) => {
       })
       toggleModal(!modalShown);
 
-    
-
   }
-
-
-  
-
   return (
 
     <div className={classes.border}>

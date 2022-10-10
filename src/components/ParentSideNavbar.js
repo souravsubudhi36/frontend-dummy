@@ -30,7 +30,15 @@ import SendIcon from '@mui/icons-material/Send';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
-
+import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
+import ApprovalIcon from '@mui/icons-material/Approval';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import TrackChangesOutlinedIcon from '@mui/icons-material/TrackChangesOutlined';
+import WorkspacePremiumOutlinedIcon from '@mui/icons-material/WorkspacePremiumOutlined';
+import AddModeratorOutlinedIcon from '@mui/icons-material/AddModeratorOutlined';
+import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
 
 const drawerWidth = 239;
 
@@ -75,6 +83,19 @@ function hubIconRendering(index)
   }
 }
 
+function mocIconRendering(index)
+{
+  if (index == 0)
+  {
+    return <ChangeCircleIcon/>
+  }
+  else
+  {
+    return <ApprovalIcon/>
+  }
+
+}
+
 const useStyles = makeStyles((theme) => ({
   paperStyle: {
     padding: 1,
@@ -94,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
   image:{
     height:70,
     width:238,
-    marginTop:'139%'
+    marginTop:'68%'
   }
 })) 
 
@@ -102,8 +123,9 @@ const useStyles = makeStyles((theme) => ({
 const menu = [
     {
         name: 'Document Repository',
-        route: ''
+        route: 'home'
     },
+    
     
   ];
 
@@ -114,13 +136,25 @@ const hubMenu = [
         route: 'analytics'
     },
     {
-        name: 'Assigned',
+        name: 'Assigned To Me',
         route: 'hub'
 
     },
     {
         name: 'NewTask',
         route: 'newtask'
+    }
+]
+
+const mocMenu = [
+
+    {
+      name: "Change Request",
+      route: "ChangeRequest"
+    },
+    {
+      name: "Impact Assessment",
+      route: "ImpactAssessment"
     }
 ]
 
@@ -143,6 +177,12 @@ export default function ParentSideNavbar(props) {
       <Divider />
         
       <List  >
+      <ListItemButton style= {{color: "white"}} component="a" href='/'>
+      <ListItemIcon style={{color: "white"}}>
+      <HomeOutlinedIcon/>
+      </ListItemIcon>
+      <ListItemText primary="Home" />
+      </ListItemButton>
       <ListItemButton onClick={handleClick}>
         <ListItemIcon style={{color: "white"}}>
         <AnalyticsIcon/>
@@ -176,12 +216,65 @@ export default function ParentSideNavbar(props) {
            
      
         ))}
+
+      <ListItemButton onClick={handleClick}>
+        <ListItemIcon style={{color: "white"}}>
+        <ManageHistoryIcon/>
+        </ListItemIcon>
+        <ListItemText primary="MOC" />
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+        {
+            mocMenu.map((text , index) => (
+          <ListItemButton style={{color: "white"}} component="a" href={`/${text.route}`} sx={{ pl: 4 }}>
+            <ListItemIcon style={{color: "white"}}>
+              {mocIconRendering(index)}
+            </ListItemIcon>
+            <ListItemText primary={text.name} style= {{color: "white"}} />
+          </ListItemButton>
+        ))}
+        </List>
+        </Collapse>
+        <ListItemButton style= {{color: "white"}} component="a" href='/'>
+        <ListItemIcon style={{color: "white"}}>
+        <SchoolOutlinedIcon/>
+        </ListItemIcon>
+        <ListItemText primary="Training & Learning" />
+        </ListItemButton>
+        <ListItemButton style= {{color: "white"}} component="a" href='/'>
+        <ListItemIcon style={{color: "white"}}>
+        <TrackChangesOutlinedIcon/>
+        </ListItemIcon>
+        <ListItemText primary="Audit & Inspection" />
+        </ListItemButton>
+        <ListItemButton style= {{color: "white"}} component="a" href='/'>
+        <ListItemIcon style={{color: "white"}}>
+        <WorkspacePremiumOutlinedIcon/>
+        </ListItemIcon>
+        <ListItemText primary="Permit To Work" />
+        </ListItemButton>
+        <ListItemButton style= {{color: "white"}} component="a" href='/'>
+        <ListItemIcon style={{color: "white"}}>
+        <AddModeratorOutlinedIcon/>
+        </ListItemIcon>
+        <ListItemText primary="CAPA" />
+        </ListItemButton>
+        <ListItemButton style= {{color: "white"}} component="a" href='/'>
+        <ListItemIcon style={{color: "white"}}>
+        <PersonSearchOutlinedIcon/>
+        </ListItemIcon>
+        <ListItemText primary="CAPA" />
+        </ListItemButton>
+
       
       </List>
+     
       <Divider />
-      <div>
+      {/* <div>
         <img src = "./modifiedIosLogo.png" className={classes.image}/>
-      </div>
+      </div> */}
      
     </div>
   );
